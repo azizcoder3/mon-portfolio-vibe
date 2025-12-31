@@ -8,7 +8,11 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "assets.mixkit.co",
+        hostname: "plus.unsplash.com", // Parfois Unsplash utilise ce sous-domaine
+      },
+      {
+        protocol: "https",
+        hostname: "**", // ATTENTION : Utile pour le dev pour tout accepter, mais à restreindre en prod idéalement
       },
     ],
   },

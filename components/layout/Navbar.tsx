@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Code2, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,6 +13,7 @@ export default function Navbar() {
     { name: "Accueil", href: "/" },
     { name: "Projets", href: "/projects" },
     { name: "À propos", href: "/about" },
+    { name: "Services Pro", href: "/services-pro" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -20,16 +22,19 @@ export default function Navbar() {
       <nav className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-white/5">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
           {/* LOGO */}
-          <Link
-            href="/"
-            className="flex items-center gap-2 font-bold text-xl hover:text-primary transition-colors"
-          >
-            <div className="p-2 bg-primary/20 rounded-lg">
-              <Code2 className="text-primary w-6 h-6" />
+          <Link href="/" className="flex items-center gap-2">
+            {/* On remplace le texte par l'image */}
+            <div className="relative w-45 h-45">
+              {" "}
+              {/* Ajuste w-40 selon la largeur voulue */}
+              <Image
+                src="/logo.png"
+                alt="Aziz Coder 3.0"
+                fill
+                className="object-contain" // Important pour ne pas déformer le logo
+                priority
+              />
             </div>
-            <span>
-              Dev<span className="text-primary">AI</span>
-            </span>
           </Link>
 
           {/* MENU ORDI (Caché sur mobile) */}

@@ -1,142 +1,176 @@
+// components/sections/Hero.tsx - CONTENU PROFESSIONNEL MIS À JOUR
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, Download, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* 1. BACKGROUND VIDEO */}
+    // 1. SECTION : On garde flex-col pour empiler (Haut - Milieu - Bas)
+    <section className="relative min-h-screen flex flex-col overflow-hidden">
+      {/* --- BACKGROUND (Inchangé) --- */}
       <div className="absolute inset-0 z-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover opacity-20"
         >
-          {/* Pour l'instant j'ai mis une vidéo tech par défaut. 
-              Quand tu auras ta vidéo, change src par : "/hero-bg.mp4" */}
-          <source
-            // src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-blue-circuit-board-989-large.mp4"
-            src="/videos/hero-bg.mp4"
-            type="video/mp4"
-          />
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
         </video>
-        {/* Overlay sombre pour la lisibilité */}
-        <div className="absolute inset-0 bg-background/80 backdrop-blur-[2px]"></div>
-
-        {/* Gradient subtil en bas pour fondre avec la section suivante */}
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-linear-to-t from-background to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-950/70 to-slate-900/60">
+          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+        </div>
       </div>
 
-      <div className="container mx-auto px-4 z-10 pt-20">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-          {/* 2. COLONNE GAUCHE : TEXTE */}
+      {/* Orbes (Inchangé) */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none z-0" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px] pointer-events-none z-0" />
+
+      {/* 
+         2. CONTENEUR PRINCIPAL (C'est ici qu'on centre) 
+         - flex-grow : Prend tout l'espace disponible
+         - flex-col justify-center : Centre verticalement le contenu
+         - pt-20 : Ajoute un peu d'espace en haut pour compenser la Navbar visuellement
+      */}
+      <div className="container mx-auto px-4 relative z-10 flex-grow flex flex-col justify-center pt-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full">
+          {/* COLONNE GAUCHE (Texte) */}
           <motion.div
-            className="flex-1 text-center md:text-left"
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
+            className="text-center lg:text-left"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-panel text-xs font-medium mb-6 text-primary border-primary/30">
-              <Sparkles className="w-3 h-3" />
-              <span>Disponible pour de nouveaux projets</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 mb-6">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-xs font-medium text-green-400 uppercase tracking-wide">
+                Disponible pour projets
+              </span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Je transforme vos idées en <br />
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-purple-400 to-secondary">
-                Réalité Numérique
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white">
+              Développeur Web <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+                Nouvelle Génération
               </span>
             </h1>
 
-            <p className="text-lg text-gray-300 mb-8 max-w-xl mx-auto md:mx-0 leading-relaxed">
-              Développeur Fullstack & Expert IA. Je combine créativité technique
-              et intelligence artificielle pour livrer des applications web
-              ultra-rapides et modernes.
+            <p className="text-lg md:text-xl text-slate-300 mb-8 leading-relaxed max-w-lg mx-auto lg:mx-0">
+              Je combine la flexibilité de <strong>WordPress</strong> et la
+              puissance de <strong>Next.js</strong> pour créer des sites web
+              modernes, boostés par l&apos;IA.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+            <div className="flex flex-col sm:flex-row gap-4 mb-12 justify-center lg:justify-start">
               <Link
                 href="/projects"
-                className="px-8 py-4 rounded-lg bg-primary hover:bg-blue-600 transition-all font-bold shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2"
+                className="group relative px-8 py-4 bg-blue-600 rounded-xl text-white font-bold overflow-hidden transition-all hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/25"
               >
-                Voir mes projets
-                <ArrowRight className="w-5 h-5" />
+                <span className="relative flex items-center gap-2 justify-center">
+                  Voir mes réalisations
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                </span>
               </Link>
+
               <Link
-                href="/cv.pdf"
-                target="_blank"
-                className="px-8 py-4 rounded-lg glass-panel hover:bg-white/10 transition-all flex items-center justify-center gap-2 font-medium border border-white/10"
+                href="/quote"
+                className="px-8 py-4 bg-white/5 border border-white/10 rounded-xl text-white font-medium hover:bg-white/10 transition-all backdrop-blur-sm"
               >
-                Télécharger CV
-                <Download className="w-5 h-5" />
+                Demander un devis
               </Link>
+            </div>
+
+            <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center lg:justify-start text-sm text-slate-400">
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-blue-500" /> Expert
+                WordPress
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-purple-500" /> Next.js &
+                React
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-amber-500" /> Vibe Coding
+              </span>
             </div>
           </motion.div>
 
-          {/* 3. COLONNE DROITE : TA PHOTO */}
+          {/* COLONNE DROITE (Image) */}
           <motion.div
-            className="flex-1 relative flex justify-center"
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative hidden lg:block"
           >
-            {/* Effet de lueur derrière toi */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/40 rounded-full blur-[100px] animate-pulse"></div>
+            <div className="relative mx-auto max-w-md">
+              <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur opacity-30 animate-pulse" />
 
-            <div className="relative w-[300px] h-[300px] md:w-[450px] md:h-[450px]">
-              {/* Cadre style "Tech" autour de la photo */}
-              <svg
-                className="absolute inset-0 w-full h-full rotate-animation spin-slow opacity-30"
-                viewBox="0 0 100 100"
-              >
-                <circle
-                  cx="50"
-                  cy="50"
-                  r="48"
-                  stroke="currentColor"
-                  strokeWidth="0.5"
-                  fill="none"
-                  className="text-primary"
-                  strokeDasharray="10 5"
-                />
-              </svg>
-
-              {/* IMAGE DU DÉVELOPPEUR */}
-              {/* Note: Remplace src par "/dev-profile.png" quand tu auras mis ta photo dans public */}
-              <Image
-                // src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=crop&w=800&q=80"
-                src="/images/dev-profile.png"
-                alt="Portrait Développeur"
-                fill
-                className="object-cover rounded-full border-4 border-white/10 shadow-2xl relative z-10"
-                priority
-              />
-
-              {/* Badge flottant "Expérience" */}
-              <motion.div
-                className="absolute bottom-10 -left-4 z-20 glass-panel p-4 rounded-xl border-l-4 border-l-primary flex items-center gap-3"
-                animate={{ y: [0, -10, 0] }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 4,
-                  ease: "easeInOut",
-                }}
-              >
-                <div className="bg-primary/20 p-2 rounded-lg">
-                  <span className="text-2xl font-bold text-white">5+</span>
+              <div className="relative bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
+                <div className="h-8 bg-slate-950 flex items-center px-4 gap-2 border-b border-slate-800">
+                  <div className="w-3 h-3 rounded-full bg-red-500/20" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/20" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/20" />
                 </div>
-                <div className="text-sm">
-                  <p className="text-gray-400">Années d&apos;</p>
-                  <p className="font-bold text-white">Expérience</p>
+
+                <div className="aspect-[4/5] relative">
+                  <Image
+                    src="/images/pro-aziz.png"
+                    alt="Développeur Web"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+
+                  <div className="absolute bottom-4 right-4 bg-slate-950/80 backdrop-blur-md p-3 rounded-xl border border-slate-800 flex items-center gap-3">
+                    <div className="flex -space-x-2">
+                      <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-xs text-white font-bold ring-2 ring-slate-900">
+                        W
+                      </div>
+                      <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-xs text-white font-bold ring-2 ring-slate-900">
+                        N
+                      </div>
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-white">
+                        Dual Expert
+                      </p>
+                      <p className="text-[10px] text-slate-400">CMS & Code</p>
+                    </div>
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
+        </div>
+      </div>
+
+      {/* 3. BARRE DE STATS (Reste en bas grâce à flex-grow du milieu) */}
+      <div className="w-full relative z-10 border-t border-white/5 bg-slate-900/30 backdrop-blur-sm mt-auto">
+        <div className="container mx-auto px-4 py-6 md:py-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { label: "Projets Réalisés", value: "50+" },
+              { label: "Satisfaction Client", value: "100%" },
+              { label: "Score Performance", value: "95+" },
+              { label: "Solutions Créatives", value: "∞" },
+            ].map((stat, i) => (
+              <div key={i} className="text-center">
+                <div className="text-2xl md:text-4xl font-bold text-white mb-1">
+                  {stat.value}
+                </div>
+                <div className="text-[10px] md:text-xs text-slate-400 uppercase tracking-widest font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
